@@ -1,7 +1,6 @@
-package com.chaoxuzhong.study.Service.Test;
+package com.chaoxuzhong.study.TestController;
 
-import com.alibaba.fastjson.support.spring.FastJsonViewResponseBodyAdvice;
-import com.chaoxuzhong.study.Service.Bean.FastJsonBean;
+import com.chaoxuzhong.study.Bean.FastJsonBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

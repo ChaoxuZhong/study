@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.Service.Bean;
+package com.chaoxuzhong.study.Bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

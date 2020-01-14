@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.Service.Hello;
+package com.chaoxuzhong.study.Hello;
 
 public class Greeting {
 
