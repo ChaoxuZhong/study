@@ -2,8 +2,10 @@ package com.chaoxuzhong.study.Hello;
 
 public class Greeting {
 
-	private final long id;
-	private final String content;
+	private  long id;
+	private  String content;
+
+	public Greeting(){ }
 
 	public Greeting(long id, String content) {
 		this.id = id;

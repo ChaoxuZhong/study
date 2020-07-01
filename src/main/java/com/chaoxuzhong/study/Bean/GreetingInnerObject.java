@@ -1,0 +1,25 @@
+package com.chaoxuzhong.study.Bean;
+
+import lombok.Data;
+
+
+public class GreetingInnerObject {
+    private String greetingInnerStr1;
+    private String greetingInnerStr2;
+
+    public String getGreetingInnerStr1() {
+        return greetingInnerStr1;
+    }
+
+    public void setGreetingInnerStr1(String greetingInnerStr1) {
+        this.greetingInnerStr1 = greetingInnerStr1;
+    }
+
+    public String getGreetingInnerStr2() {
+        return greetingInnerStr2;
+    }
+
+    public void setGreetingInnerStr2(String greetingInnerStr2) {
+        this.greetingInnerStr2 = greetingInnerStr2;
+    }
+}
