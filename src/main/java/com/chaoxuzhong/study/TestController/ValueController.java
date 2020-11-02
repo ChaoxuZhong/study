@@ -18,6 +18,6 @@ public class ValueController {
 
     @RequestMapping("/showValue")
     public String showValue(){
-        return value1.concat(value2).concat("我是新加的尾巴的的的");
+        return value1.concat("我是新加的尾巴的的的");
     }
 }

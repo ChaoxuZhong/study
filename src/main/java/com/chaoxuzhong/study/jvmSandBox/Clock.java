@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.JvmSandBox;
+package com.chaoxuzhong.study.jvmSandBox;
 
 public class Clock {
     // 日期格式化

@@ -1,6 +1,5 @@
-package com.chaoxuzhong.study.GlobalException;
+package com.chaoxuzhong.study.globalException;
 
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

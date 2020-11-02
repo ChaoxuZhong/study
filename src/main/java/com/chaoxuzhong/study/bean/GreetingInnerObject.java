@@ -1,6 +1,4 @@
-package com.chaoxuzhong.study.Bean;
-
-import lombok.Data;
+package com.chaoxuzhong.study.bean;
 
 
 public class GreetingInnerObject {

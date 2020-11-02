@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.Bean;
+package com.chaoxuzhong.study.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

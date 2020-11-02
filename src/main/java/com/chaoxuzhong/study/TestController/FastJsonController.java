@@ -1,6 +1,6 @@
 package com.chaoxuzhong.study.TestController;
 
-import com.chaoxuzhong.study.Bean.FastJsonBean;
+import com.chaoxuzhong.study.bean.FastJsonBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

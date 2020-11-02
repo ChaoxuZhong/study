@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.Bean;
+package com.chaoxuzhong.study.bean;
 
 public class GreetingPostBody {
     private String greetingSource;

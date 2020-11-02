@@ -1,8 +1,7 @@
-package com.chaoxuzhong.study.Bean;
+package com.chaoxuzhong.study.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 

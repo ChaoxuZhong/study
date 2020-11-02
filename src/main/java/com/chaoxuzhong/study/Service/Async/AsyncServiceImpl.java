@@ -1,10 +1,8 @@
 package com.chaoxuzhong.study.Service.Async;
 
 import com.alibaba.fastjson.JSON;
-import com.chaoxuzhong.study.Bean.GreetingInnerObject;
-import com.chaoxuzhong.study.Bean.GreetingPostBody;
-import com.chaoxuzhong.study.Bean.HttpRequestBean;
-import com.chaoxuzhong.study.Hello.Greeting;
+import com.chaoxuzhong.study.bean.GreetingInnerObject;
+import com.chaoxuzhong.study.bean.GreetingPostBody;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

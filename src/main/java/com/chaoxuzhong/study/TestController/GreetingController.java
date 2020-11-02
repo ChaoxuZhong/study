@@ -1,12 +1,8 @@
 package com.chaoxuzhong.study.TestController;
 
-import java.nio.charset.Charset;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.alibaba.fastjson.JSON;
-import com.chaoxuzhong.study.Bean.GreetingInnerObject;
-import com.chaoxuzhong.study.Bean.GreetingPostBody;
-import com.chaoxuzhong.study.Hello.Greeting;
+import com.chaoxuzhong.study.bean.GreetingPostBody;
+import com.chaoxuzhong.study.hello.Greeting;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -14,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.nio.charset.Charset;
+import java.util.concurrent.atomic.AtomicLong;
 
 @EnableConfigurationProperties
 @RestController
