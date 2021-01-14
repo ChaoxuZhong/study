@@ -2,7 +2,7 @@ package com.chaoxuzhong.study.bean;
 
 
 public class GreetingInnerObject {
-    private String greetingInnerStr1;
+    private String greetingInnerStr1;// TOTOTO
     private String greetingInnerStr2;
 
     public String getGreetingInnerStr1() {

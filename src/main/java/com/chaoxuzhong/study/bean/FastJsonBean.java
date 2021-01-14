@@ -9,6 +9,10 @@ import java.util.Date;
 public class FastJsonBean {
     private int age;
     private String name;
+    @JSONField(name = "AAA")
+    private String gender;
+    private String name;
+    @JSONField(name = "AAA")
     private String gender;
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date date;
