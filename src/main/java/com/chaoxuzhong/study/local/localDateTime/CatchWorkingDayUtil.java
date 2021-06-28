@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CatchWorkingDayUtil implements ICache {
 
+
     // 本类实例对象
     private static volatile CatchWorkingDayUtil instance;
 

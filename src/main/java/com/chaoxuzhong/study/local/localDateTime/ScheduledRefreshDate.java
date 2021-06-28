@@ -18,6 +18,14 @@ import java.util.List;
 @EnableScheduling
 public class ScheduledRefreshDate {
 
+    //    @Scheduled(cron="0 0 0 1/1 * ?")
+    @Scheduled(cron="0 * * * * ?")
+    public void refreshHoliday() {
+        CatchWorkingDayUtil.getInstance().clearCache();
+        logger.info("refresh holiday time = " + LocalDateTime.now().toString());
+        LocalDateTimeUtil.refreshHolidays(getHolidays());
+    }
+
     static List<String> holidays = new ArrayList<>();
     private static Logger logger = LoggerFactory.getLogger(ScheduledRefreshDate.class);
 
@@ -38,12 +46,5 @@ public class ScheduledRefreshDate {
         return holidays;
     }
 
-//    @Scheduled(cron="0 0 0 1/1 * ?")
-    @Scheduled(cron="0/20 * * * * ?")
-    public void refreshHoliday() {
-        CatchWorkingDayUtil.getInstance().clearCache();
-        logger.info("refresh holiday time = " + LocalDateTime.now().toString());
-        LocalDateTimeUtil.refreshHolidays(getHolidays());
-    }
 
 }

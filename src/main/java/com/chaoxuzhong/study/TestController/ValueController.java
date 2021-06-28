@@ -1,7 +1,6 @@
 package com.chaoxuzhong.study.TestController;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  * 自动取值控制层
  */
 @RestController
-@EnableConfigurationProperties
 public class ValueController {
     @Value("${value.value1}")
     private String value1;
