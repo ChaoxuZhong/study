@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.Service.Async;
+package com.chaoxuzhong.study.Service.async;
 
 
 import java.util.concurrent.Future;

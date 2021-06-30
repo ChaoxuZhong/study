@@ -1,4 +1,4 @@
-package com.chaoxuzhong.study.Service.Async;
+package com.chaoxuzhong.study.Service.async;
 
 import com.alibaba.fastjson.JSON;
 import com.chaoxuzhong.study.bean.GreetingInnerObject;
