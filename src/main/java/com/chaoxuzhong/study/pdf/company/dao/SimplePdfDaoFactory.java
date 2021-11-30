@@ -25,7 +25,8 @@ public class SimplePdfDaoFactory {
         map.put(PdfTemplateNameConstant.ADEN_AC_OPENING_FORM_CORPORATE_01, newChain(Arrays.asList(
                 PdfDaoHandlerNameConstant.MEMBER_INF0,
                 PdfDaoHandlerNameConstant.CO_INFO,
-                PdfDaoHandlerNameConstant.MEMBER_INFO_DETAIL
+                PdfDaoHandlerNameConstant.MEMBER_INFO_DETAIL,
+                PdfDaoHandlerNameConstant.CO_PERSONAL
         )));
         map.put(PdfTemplateNameConstant.ADEN_AC_OPENING_FORM_CORPORATE_02, newChain(Arrays.asList(PdfDaoHandlerNameConstant.MEMBER_INF0)));
     }

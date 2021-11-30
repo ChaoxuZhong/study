@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class PdfFieldCompareUtil {
@@ -76,6 +77,7 @@ public class PdfFieldCompareUtil {
     }
 
     private static void showLog(ArrayList<LogMsg> logList) {
+        logList = (ArrayList<LogMsg>) logList.stream().sorted().collect(Collectors.toList());
         logList.forEach(logMsg -> {
             log.info(String.format(logMsg.getMsgTemplate(), logMsg.getKey(), logMsg.getValue(), logMsg.getTestValue()));
         });
@@ -89,7 +91,6 @@ public class PdfFieldCompareUtil {
             if (field instanceof PdfTextBoxFieldWidget) {
                 String v = ((PdfTextBoxFieldWidget) field).getText();
                 if (StringUtils.isEmpty(v)) {
-                    // 防一手空指针，其他地方懒得判断
                     v = EMPTY;
                 }
                 result.put(name, new PdfFieldVo(FieldTypeEnums.TEXT, v));
@@ -102,7 +103,7 @@ public class PdfFieldCompareUtil {
     }
 
     @Data
-    public static class LogMsg{
+    public static class LogMsg implements Comparable<LogMsg>{
         private String key;
         private String value;
         private String testValue;
@@ -120,6 +121,12 @@ public class PdfFieldCompareUtil {
             this.testValue = testValue;
             this.msgTemplate = msgTemplate;
         }
+
+        @Override
+        public int compareTo(LogMsg o) {
+            return key.compareTo(o.getKey());
+        }
+
     }
 
 

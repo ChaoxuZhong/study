@@ -8,8 +8,10 @@ import com.chaoxuzhong.study.pdf.company.mockdao.TestMockDaoSerivce;
 import com.chaoxuzhong.study.pdf.company.pojo.DaoDictConvertDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Service(PdfDaoHandlerNameConstant.CO_INFO)
@@ -35,6 +37,18 @@ public class CoInfoDaoHandler extends DefaultPdfDaoHandler implements IPdfDaoHan
     @Override
     protected Object getDataFromDb(String memberNo) {
         return testMockDaoSerivce.getMemberCoInfo();
+    }
+
+    @Override
+    protected void dealSpecialKeys(HashMap<String, Object> dbMapInThisHandler){
+        String beneficiary = (String) dbMapInThisHandler.get("beneficiary");
+        if (!StringUtils.isEmpty(beneficiary)) {
+            if(beneficiary.equals("Y_BENE")){
+                dbMapInThisHandler.put("beneficiaryYes", "beneficiaryYes");
+            }else{
+                dbMapInThisHandler.put("beneficiaryNo", "beneficiaryNo");
+            }
+        }
     }
 
 }

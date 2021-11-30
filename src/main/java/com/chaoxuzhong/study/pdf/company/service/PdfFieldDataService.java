@@ -1,5 +1,6 @@
 package com.chaoxuzhong.study.pdf.company.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.chaoxuzhong.study.pdf.company.config.PdfCompanyFieldNameDaoConfig;
 import com.chaoxuzhong.study.pdf.company.config.PdfDaoConfig;
 import com.chaoxuzhong.study.pdf.company.dao.SimplePdfDaoFactory;
@@ -10,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -20,6 +23,8 @@ import java.util.HashMap;
 @Service
 @Slf4j
 public class PdfFieldDataService {
+
+    private static final SimpleDateFormat YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * 获取填充pdf需要的数据FieldVo
@@ -81,6 +86,8 @@ public class PdfFieldDataService {
             return ((LocalDate) daoValue).format(DateTimeFormatter.ISO_LOCAL_DATE);
         } else if (daoValue instanceof Integer) {
             return ((Integer) daoValue).toString();
+        } else if (daoValue instanceof Date) {
+            return DateUtil.date((Date)daoValue).toString(YYYY_MM_DD);
         }
         return daoValue.toString();
     }

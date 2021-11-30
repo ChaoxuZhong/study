@@ -25,9 +25,18 @@ public abstract class DefaultPdfDaoHandler implements IPdfDaoHandler {
             dbMapInThisHandler = convertDbDataToMap(dbData);
         }
         convertDictCodeToChName(dbDataMap);
+        dealSpecialKeys(dbMapInThisHandler);
 
         dbMapInThisHandler = MapUtil.appendKeysPrefix(dbMapInThisHandler, getDbName());
         dbDataMap.putAll(dbMapInThisHandler);
+    }
+
+    /**
+     * 处理需要处理的特殊数据——默认什么都不做，继承类自己决定
+     * @param dbDataMap
+     */
+    protected void dealSpecialKeys(HashMap<String, Object> dbDataMap){
+        return;
     }
 
     /**
