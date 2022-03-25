@@ -1,5 +1,6 @@
 package com.chaoxuzhong.study.pdf.company.mockdao;
 
+import cn.hutool.json.JSONUtil;
 import com.chaoxuzhong.study.pdf.company.dao.SequenceStr;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,40 @@ public class TestMockDaoSerivce {
         memberCoInfo.setIvBond("01,02,03,04,05");
         memberCoInfo.setIvForeignCurrency("01,02,03,04,05");
         memberCoInfo.setIvOther("投资经验—其它");
+        // 1-9 投资目的
+        memberCoInfo.setObjective("01,02,03,04,05,06,07,08");
+        memberCoInfo.setObjectiveInvestment("01,02,03,04,05");
+        memberCoInfo.setObjectiveInvestmentPeriod("01,02,03");
+        memberCoInfo.setObjectiveRisk("01,02,03,04");
+//        memberCoInfo.setObjectivesOther("");
+        // 1-12 通讯方式
+        memberCoInfo.setPostalType("01,02,03,04");
+        memberCoInfo.setPostalOtherAddress("其他通讯方式");
+        // 1-14 披露关联账户
+        memberCoInfo.setIdsRelativesWhether("Y");
+        memberCoInfo.setIdsRelativesName("董事姓名");
+        memberCoInfo.setIdsRelativesRelation("关系啊关系");
+        memberCoInfo.setIdsAdenCustWhether("Y");
+        memberCoInfo.setIdsAdenCustName("客户姓名");
+        memberCoInfo.setIdsAdenCustAccount("123321123");
+        memberCoInfo.setIdsControlVoteWhether("Y");
+        memberCoInfo.setIdsControlVoteName("受控制客户名称");
+        memberCoInfo.setIdsControlVoteAccount("受控制客户账号");
+        memberCoInfo.setIdsOpenAccountWhether("Y");
+        memberCoInfo.setIdsOrganDirectorWhether("N");
+        memberCoInfo.setIdsOrganDirectorName("注册机构名称");
+        memberCoInfo.setIdsOrganDirectorAccount("注册机构号码");
+        memberCoInfo.setIdsPartyWhether("N");
+
+        // 自我证明
+        memberCoInfo.setProofLegalName("法定名称");
+        memberCoInfo.setProofJurisdiction("税务管辖区");
+        memberCoInfo.setProofRegisterNo("123321222");
+        memberCoInfo.setProofBusinessAddress("现时营业地址");
+        memberCoInfo.setProofBusinessArea("现时营业省市");
+        memberCoInfo.setProofPostalCode("现时邮编");
+        memberCoInfo.setProofPostalAddress("通讯地址");
+        memberCoInfo.setProffPostalExtend("通讯邮政编码");
         return memberCoInfo;
     }
 
@@ -70,10 +105,12 @@ public class TestMockDaoSerivce {
         memberInfoDetail.setCompanyTel("13612312312");
         memberInfoDetail.setBirthCountry("中国");
         memberInfoDetail.setBirthDate(new Date());
-        memberInfoDetail.setIdCard("gszch123");
+        memberInfoDetail.setIdCard("identityNo");
         memberInfoDetail.setFaxNo("123123123");
         // 1-7 财务状况
         memberInfoDetail.setAssetWorth("12345");
+        // 1-10 衍生品认识
+        memberInfoDetail.setDerivative("01,02,03,04");
 //        memberInfoDetail.set
         return memberInfoDetail;
     }
@@ -117,35 +154,109 @@ public class TestMockDaoSerivce {
         }
 
         // 最终权益拥有人
-        MemberCoPersonnel resultItem = new MemberCoPersonnel();
-        resultItem.setEnName("enenName" );
-        resultItem.setRealName("realName");
+        MemberCoPersonnel benificialItem = new MemberCoPersonnel();
+        benificialItem.setEnName("enenName" );
+        benificialItem.setRealName("realName");
         // 0-内地  1-港澳台  2 其他国家或者护照
-        resultItem.setIdentityType("1");
-        resultItem.setIdentityNo("identityNo");
-        resultItem.setIdentityPlace("identityPlace");
-        resultItem.setBirthDate(new Date());
-        resultItem.setAddress("address");
-        resultItem.setNationality("国籍");
-        resultItem.setBirthCountry("中国");
-        resultItem.setPhone("phone");
-        resultItem.setMaritalStatus("01");
-        resultItem.setNowAddress("现居住地");
-        resultItem.setNowCountry("现居住国家");
-        resultItem.setPerpetualAddress("永久地址");
-        resultItem.setHomePhone("住宅电话");
-        resultItem.setRegion("省市区");
-        resultItem.setPhone("手提电话");
-        resultItem.setEmail("test@test.com");
-        resultItem.setShareRatio(BigDecimal.ONE);
-        resultItem.setEstimatedControl(BigDecimal.TEN);
+        benificialItem.setIdentityType("1");
+        benificialItem.setIdentityNo("identityNo");
+        benificialItem.setIdentityPlace("identityPlace");
+        benificialItem.setBirthDate(new Date());
+        benificialItem.setAddress("address");
+        benificialItem.setNationality("国籍");
+        benificialItem.setBirthCountry("中国");
+        benificialItem.setPhone("phone");
+        benificialItem.setMaritalStatus("01");
+        benificialItem.setNowAddress("现居住地");
+        benificialItem.setNowCountry("现居住国家");
+        benificialItem.setPerpetualAddress("永久地址");
+        benificialItem.setHomePhone("住宅电话");
+        benificialItem.setRegion("省市区");
+        benificialItem.setPhone("手提电话");
+        benificialItem.setEmail("test@test.com");
+        benificialItem.setShareRatio(BigDecimal.ONE);
+        benificialItem.setEstimatedControl(BigDecimal.TEN);
+        benificialItem.setType(CoPersonnelType.beneficial.getKey());
+        results.add(benificialItem);
 
 
-        resultItem.setType(CoPersonnelType.beneficial.getKey());
-        results.add(resultItem);
+        // 获授权人
+        SequenceStr grantSeq = SequenceStr.init();
+        for (int i = 0; i < 3; i++) {
+            grantSeq.add();
+            MemberCoPersonnel resultItem = new MemberCoPersonnel();
+            resultItem.setEnName("name" + grantSeq.getSequence());
+            resultItem.setRealName("name" + grantSeq.getSequence());
+            resultItem.setIdentityNo("idCard" + grantSeq.getSequence());
+            resultItem.setBirthDate(new Date());
+            resultItem.setAddress("address" + grantSeq.getSequence());
+            resultItem.setNationality("nationality" + grantSeq.getSequence());
+            resultItem.setPhone("phone" + grantSeq.getSequence());
+            resultItem.setShareRatio(BigDecimal.ONE);
+            resultItem.setAuthorizedProject("A");
+            resultItem.setWechat("wechat" + grantSeq.getSequence());
+
+            resultItem.setType(CoPersonnelType.grant.getKey());
+            results.add(resultItem);
+        }
+
+        // 控权人
+        SequenceStr controlSeq = SequenceStr.init();
+        for (int i = 0; i < 8; i++) {
+            controlSeq.add();
+            MemberCoPersonnel resultItem = new MemberCoPersonnel();
+            resultItem.setRealName("控权人" + controlSeq.getSequence());
+            resultItem.setType(CoPersonnelType.control.getKey());
+
+            results.add(resultItem);
+        }
+
 
         return results;
     }
 
 
+    public MemberCoUsa getMemberUsa() {
+        // 1-16 美国人身份证明
+        MemberCoUsa memberCoUsa = new MemberCoUsa();
+        memberCoUsa.setUsaWhether("Y");
+        memberCoUsa.setUsaTaxpayerNo("1233211234567");
+        memberCoUsa.setUsaMeetCondition("1,2,3,4,5,6,7");
+        // 1-17 外国账户税务合规
+        memberCoUsa.setUsaControlPower("N");
+        memberCoUsa.setUsaNoOverseas("N");
+        memberCoUsa.setUsaOverseasIdentity("1,2,3,4");
+        memberCoUsa.setUsaTax("2389");
+        memberCoUsa.setUsaMiddleman("43589");
+        // 1-18 自行认证
+        memberCoUsa.setUsaSelfAppoint("Y");
+        memberCoUsa.setUsaSelfFinancial("Y");
+        memberCoUsa.setUsaSelfTax("usaSelf");
+
+        return memberCoUsa;
+    }
+
+
+    public MemberCoAml getMemberCoAml() {
+        MemberCoAml memberCoAml = new MemberCoAml();
+        memberCoAml.setAmlFatca(JSONUtil.parseArray("[{\"index\":\"1\",\"val\":\"Y\",\"desc\":\"原因:val为N时填写\"},{\"index\":\"2\",\"val\":\"N\",\"desc\":\"原因:val为N时填写\"}]"));
+        return memberCoAml;
+    }
+
+    public Object getJurisdiction() {
+        List<MemberJurisdiction> memberJurisdictions = new ArrayList<>();
+        SequenceStr sequenceStr = SequenceStr.init();
+        for (int i = 0; i < 5; i++) {
+            sequenceStr.add();
+            MemberJurisdiction memberJurisdiction = new MemberJurisdiction();
+            memberJurisdiction.setJurisdiction("jurisdiction" + sequenceStr.getSequence());
+            memberJurisdiction.setTaxNo("taxNo" + sequenceStr.getSequence());
+            memberJurisdiction.setTaxCauseSelect("select" + sequenceStr.getSequence());
+            memberJurisdiction.setTaxDesc("taxDesc" + sequenceStr.getSequence());
+            memberJurisdictions.add(memberJurisdiction);
+        }
+        return memberJurisdictions;
+
+
+    }
 }

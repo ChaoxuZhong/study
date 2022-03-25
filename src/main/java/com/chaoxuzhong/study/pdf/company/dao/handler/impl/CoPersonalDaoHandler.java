@@ -30,12 +30,10 @@ public class CoPersonalDaoHandler implements IPdfDaoHandler {
         List<MemberCoPersonnel> directorPersonelsList = coPersonels.stream().
                 filter(item -> CoPersonnelType.director.getKey().equals(item.getType())).collect(Collectors.toList());
         SequenceStr directorSeq = SequenceStr.init();
-        directorPersonelsList.forEach(director->{
+        directorPersonelsList.forEach(director -> {
             directorSeq.add();
             HashMap<String, Object> itemDirectorMap = MapUtil.objToMap(director);
-            itemDirectorMap = MapUtil.appendKeysPrefix(itemDirectorMap, CoPersonnelType.director.getKey());
-            itemDirectorMap = MapUtil.appendKeysPrefix(itemDirectorMap, PdfDaoDbNameConstant.CO_PERSONAL);
-            itemDirectorMap = MapUtil.appendKeysSuffix(itemDirectorMap, directorSeq.getSequence());
+            itemDirectorMap = listModifyKey(itemDirectorMap, CoPersonnelType.director, directorSeq);
             dbDataMap.putAll(itemDirectorMap);
         });
 
@@ -43,48 +41,75 @@ public class CoPersonalDaoHandler implements IPdfDaoHandler {
         List<MemberCoPersonnel> shareholderPersonelsList = coPersonels.stream().
                 filter(item -> CoPersonnelType.shareholder.getKey().equals(item.getType())).collect(Collectors.toList());
         SequenceStr shareholerSeq = SequenceStr.init();
-        shareholderPersonelsList.forEach(shareholder->{
+        shareholderPersonelsList.forEach(shareholder -> {
             shareholerSeq.add();
             HashMap<String, Object> itemShareholderMap = MapUtil.objToMap(shareholder);
             // 是否有亲属关系  复选框：key 中contain value ，自动勾选本复选框
             if (StringUtils.isEmpty(shareholder.getShareFamily())) {
                 itemShareholderMap.put("shareholderFamilyNo", shareholerSeq.getSequence());
-            }else{
+            } else {
                 itemShareholderMap.put("shareholderFamilyYes", shareholerSeq.getSequence());
             }
             // 默认勾选不是美国人
             itemShareholderMap.put("shareholderRelativeUsNo", shareholerSeq.getSequence());
-
-            itemShareholderMap = MapUtil.appendKeysPrefix(itemShareholderMap, CoPersonnelType.shareholder.getKey());
-            itemShareholderMap = MapUtil.appendKeysPrefix(itemShareholderMap, PdfDaoDbNameConstant.CO_PERSONAL);
-            itemShareholderMap = MapUtil.appendKeysSuffix(itemShareholderMap, shareholerSeq.getSequence());
+            itemShareholderMap = listModifyKey(itemShareholderMap, CoPersonnelType.shareholder, shareholerSeq);
             dbDataMap.putAll(itemShareholderMap);
         });
 
         // 最终实际利益拥有人
         coPersonels.stream().
                 filter(item -> CoPersonnelType.beneficial.getKey().equals(item.getType())).findFirst().ifPresent(coPersonnel -> {
-            HashMap<String, Object>  beneficialMap = MapUtil.objToMap(coPersonnel);
-            String identityType = (String)beneficialMap.get("identityType");
+            HashMap<String, Object> beneficialMap = MapUtil.objToMap(coPersonnel);
+            String identityType = (String) beneficialMap.get("identityType");
             if (!StringUtils.isEmpty(identityType)) {
                 if (identityType.equals("2")) { // 护照的枚举
                     beneficialMap.put("passportNo", coPersonnel.getIdentityNo());
                     beneficialMap.put("passportPlace", coPersonnel.getIdentityPlace());
-                }else{
-                    beneficialMap.put("idCard", coPersonnel.getIdentityNo());
-                    beneficialMap.put("idcardPlace", coPersonnel.getIdentityPlace());
+                } else {
+                    beneficialMap.put("benificialIdCard", coPersonnel.getIdentityNo());
+                    beneficialMap.put("idCardPlace", coPersonnel.getIdentityPlace());
                 }
             }
-            beneficialMap = MapUtil.appendKeysPrefix(beneficialMap, CoPersonnelType.beneficial.getKey());
-            beneficialMap = MapUtil.appendKeysPrefix(beneficialMap, PdfDaoDbNameConstant.CO_PERSONAL);
+            beneficialMap = singleModifyKey(beneficialMap, CoPersonnelType.beneficial);
             dbDataMap.putAll(beneficialMap);
         });
 
-        return;
+        // 获授权人
+        List<MemberCoPersonnel> grantPersonelsList = coPersonels.stream().
+                filter(x -> CoPersonnelType.grant.getKey().equals(x.getType())).collect(Collectors.toList());
+        SequenceStr grantSeq = SequenceStr.init();
+        grantPersonelsList.forEach(coPersonel -> {
+            grantSeq.add();
+            HashMap<String, Object> grantMap = MapUtil.objToMap(coPersonel);
+            grantMap = listModifyKey(grantMap, CoPersonnelType.grant, grantSeq);
+            dbDataMap.putAll(grantMap);
+        });
 
+        // 控权人
+        List<MemberCoPersonnel> controlPersonelsList = coPersonels.stream().
+                filter(x -> CoPersonnelType.control.getKey().equals(x.getType())).collect(Collectors.toList());
+        SequenceStr controlSeq = SequenceStr.init();
+        controlPersonelsList.forEach(coPersonel -> {
+            controlSeq.add();
+            HashMap<String, Object> controlMap = MapUtil.objToMap(coPersonel);
+            controlMap = listModifyKey(controlMap, CoPersonnelType.control, controlSeq);
+            dbDataMap.putAll(controlMap);
+        });
+        return;
 
     }
 
+    private HashMap<String, Object> singleModifyKey(HashMap<String, Object> map, CoPersonnelType type) {
+        map = MapUtil.appendKeysPrefix(map, type.getKey());
+        map = MapUtil.appendKeysPrefix(map, PdfDaoDbNameConstant.CO_PERSONAL);
+        return map;
+    }
 
+    private HashMap<String, Object> listModifyKey(HashMap<String, Object> map, CoPersonnelType type, SequenceStr sequenceStr) {
+        map = MapUtil.appendKeysPrefix(map, type.getKey());
+        map = MapUtil.appendKeysPrefix(map, PdfDaoDbNameConstant.CO_PERSONAL);
+        map = MapUtil.appendKeysSuffix(map, sequenceStr.getSequence());
+        return map;
+    }
 
 }

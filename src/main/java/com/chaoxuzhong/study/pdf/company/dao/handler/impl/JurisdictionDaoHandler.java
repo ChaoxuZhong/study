@@ -4,10 +4,15 @@ import com.chaoxuzhong.study.pdf.company.dao.handler.DefaultPdfDaoHandler;
 import com.chaoxuzhong.study.pdf.company.dao.handler.IPdfDaoHandler;
 import com.chaoxuzhong.study.pdf.company.dao.handler.PdfDaoDbNameConstant;
 import com.chaoxuzhong.study.pdf.company.dao.handler.PdfDaoHandlerNameConstant;
+import com.chaoxuzhong.study.pdf.company.mockdao.TestMockDaoSerivce;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service(PdfDaoHandlerNameConstant.JURISDICTION)
 public class JurisdictionDaoHandler extends DefaultPdfDaoHandler implements IPdfDaoHandler {
+
+    @Autowired
+    private TestMockDaoSerivce testMockDaoSerivce;
 
     @Override
     protected String getDbName() {
@@ -16,7 +21,7 @@ public class JurisdictionDaoHandler extends DefaultPdfDaoHandler implements IPdf
 
     @Override
     protected Object getDataFromDb(String memberNo) {
-        return null;
+        return testMockDaoSerivce.getJurisdiction();
     }
 
 }
